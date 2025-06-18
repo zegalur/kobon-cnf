@@ -41,5 +41,5 @@ This project makes use of the [Kissat](https://github.com/arminbiere/kissat) SAT
 ## License
 
 This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)  
-*Pavlo Savchuk, 2024*
+*Pavlo Savchuk, 2025*
 
