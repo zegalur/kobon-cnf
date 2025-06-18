@@ -23,7 +23,7 @@ help_info_template = """
 
 Use `Ctrl+C` to stop the script. Later, you can resume to where it was.
 
-For more info: <... github link here ...>
+For more info: https://github.com/zegalur/kobon-cnf
 
 Usage:
 > python[3] {name}.py <line_count> [<options> ...]
