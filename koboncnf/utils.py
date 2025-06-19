@@ -114,7 +114,7 @@ def run(main_func,
         if next_option == "-M":
           mirrored = True
 
-        if next_option == "-C":
+        elif next_option == "-C":
           clear = True
 
         elif next_option == "-R":
