@@ -456,14 +456,14 @@ def generate(
         f.write("\nc Every finite non-overlapping segment is an edge of")
         f.write("\nc a non-overlapping triangle, except for the segments")
         f.write("\nc with missing triangles:")
-        f.write("\nc   Mk(r,i,j) OR (G(r,i,j) => G(i,{r,j}) AND G(j,{r,i}))")
+        f.write("\nc   Mk(r,i,j) OR (G(r,i,j) <=> G(i,{r,j}) AND G(j,{r,i}))")
         for r in range(N):
           for i in range(N):
             for j in range(N):
               if i == r: continue
               if j == r: continue
               if i == j: continue
-              clauses += 4
+              clauses += 6
               m_ij = ""
               m_ji = ""
               if (r+1) in missing_triangles:
@@ -473,75 +473,99 @@ def generate(
               if (r < i) and (i < j): # (1)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,r,j)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,r,i)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(i,r,j)],G[(j,r,i)],m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,j,r)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,i,r)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(i,j,r)],G[(j,i,r)],m_ji))
               elif (r < j) and (j < i): # (2)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,r,i)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,r,j)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(j,r,i)],G[(i,r,j)],m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,i,r)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,j,r)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(j,i,r)],G[(i,j,r)],m_ij))
               elif (i < r) and (r < j): # (3)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,r,j)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,i,r)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(i,r,j)],G[(j,i,r)],m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,j,r)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,r,i)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(i,j,r)],G[(j,r,i)],m_ji))
               elif (j < r) and (r < i): # (4)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,r,i)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,j,r)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(j,r,i)],G[(i,j,r)],m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,i,r)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,r,j)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(j,i,r)],G[(i,r,j)],m_ij))
               elif (i < j) and (j < r): # (5)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,j,r)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,i,r)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(i,j,r)],G[(j,i,r)],m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,r,j)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,r,i)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(i,r,j)],G[(j,r,i)],m_ji))
               elif (j < i) and (i < r): # (6)
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(j,i,r)], m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,j,i)], G[(i,j,r)], m_ji))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,j,i)],G[(j,i,r)],G[(i,j,r)],m_ji))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(j,r,i)], m_ij))
                 f.write("\n{2}-{0} {1} 0".format(G[(r,i,j)], G[(i,r,j)], m_ij))
+                f.write("\n{0} -{1} -{2} {3} 0".format(G[(r,i,j)],G[(j,r,i)],G[(i,r,j)],m_ij))
 
         f.write(hr)
         f.write("\nc Every finite segment is an edge of triangle.")
         f.write("\nc This sets additional conditions for the X(r,i,j):")
-        f.write("\nc   X(r,i,j) => X(i,{r,j}) AND X(j,{r,i})")
+        f.write("\nc   X(r,i,j) <=> X(i,{r,j}) AND X(j,{r,i})")
         for r in range(N):
           for i in range(N):
             for j in range(N):
               if i == r: continue
               if j == r: continue
               if i == j: continue
-              clauses += 4
+              clauses += 6
               if (r < i) and (i < j): # (1)
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,r,j)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,r,i)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(i,r,j)],X[(j,r,i)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,j,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,i,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(i,j,r)],X[(j,i,r)]))
               elif (r < j) and (j < i): # (2)
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,r,i)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,r,j)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(j,r,i)],X[(i,r,j)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,i,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,j,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(j,i,r)],X[(i,j,r)]))
               elif (i < r) and (r < j): # (3)
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,r,j)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,i,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(i,r,j)],X[(j,i,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,j,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,r,i)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(i,j,r)],X[(j,r,i)]))
               elif (j < r) and (r < i): # (4)
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,r,i)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,j,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(j,r,i)],X[(i,j,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,i,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,r,j)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(j,i,r)],X[(i,r,j)]))
               elif (i < j) and (j < r): # (5)
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,j,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,i,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(i,j,r)],X[(j,i,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,r,j)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,r,i)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(i,r,j)],X[(j,r,i)]))
               elif (j < i) and (i < r): # (6)
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(j,i,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,j,i)], X[(i,j,r)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,j,i)],X[(j,i,r)],X[(i,j,r)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(j,r,i)]))
                 f.write("\n-{0} {1} 0".format(X[(r,i,j)], X[(i,r,j)]))
+                f.write("\n{0} -{1} -{2} 0".format(X[(r,i,j)],X[(j,r,i)],X[(i,r,j)]))
 
         # ============================ Mirror =============================== #
 
@@ -592,7 +616,7 @@ def generate(
             skip = []
             for b in tmp:
               rb = reverse_order(b)
-              for i in range(len(b)):
+              for i in range(len(b) if not mirrored else 1):
                 skip.append(reindex_table(b, i + 1))
                 skip.append(reindex_table(rb, i + 1))
             skip = remove_list_duplicates(skip)
