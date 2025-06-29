@@ -594,7 +594,7 @@ def generate(
             P = (2*N) // ROT
             f.write(hr)
             f.write("\nc Rotational Symmetry (R{0}):\n".format(ROT))
-            f.write("\nc   A(r,i,k) => A(sr,si,ik)")
+            f.write("\nc   A(r,i,k) => A(sr,si,sk)")
             for r in range(N):
               for k in range(N-1):
                 for i in range(N):
