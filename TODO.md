@@ -4,6 +4,7 @@ KobonCNF TODO list.
 
 ### Todo
 
+- [ ] Remove `-U`, instead add `-A <flags>` (add symmetries)
 
 ### In Progress
 

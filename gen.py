@@ -6,6 +6,7 @@ import koboncnf
 import subprocess
 import threading
 import signal
+import time
 import sys
 import ast
 import os
@@ -57,6 +58,8 @@ def gen_main(
             data_str = file.read()
             skip = ast.literal_eval(data_str)
             print("...DONE")
+
+    startT = time.time()
 
     # ============================ Calculations ============================= #
 
@@ -118,6 +121,8 @@ def gen_main(
             print("The last CNF model is UNSATISFIABLE.")
             print("All possible arrangements have been found.")
             print("Arrangements have been saved to `{}`".format(res_filename))
+            endT = time.time()
+            print("Total running time: {} sec".format(endT - startT))
             print("EXIT")
             exit(0)
 

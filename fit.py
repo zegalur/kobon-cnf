@@ -11,6 +11,7 @@ import koboncnf
 import subprocess
 import threading
 import signal
+import time
 import copy
 import sys
 import ast
@@ -183,6 +184,8 @@ def gen_main(
             print("...DONE")
             print("Found {} previous result(s).".format(len(res)))
     
+    startT = time.time()
+
     for tab in tabs:
         tab_printed = False
 
@@ -190,6 +193,9 @@ def gen_main(
 
         tset = []
         rtab = lineorder.reverse_order(tab)
+        # TODO: remove -U (unique), add -A for all symmetries etc.
+        #tab2 = reindex_table(reindex_table(tab, len(tab)), 2)
+        #rtab2 = reverse_order(tab2)
 
         if unique_only:
           tset = [ tab ]
@@ -203,7 +209,11 @@ def gen_main(
                        for i in range((2*N) // rotational_symmetry) ]
             tset = tset_1 + tset_2
           else:
-            tset = [ lineorder.reindex_table(tab, i + 1) for i in range(N) ]
+            tset_1 = [ lineorder.reindex_table(tab, i + 1) for i in range(N) ]
+            tset_2 = [ lineorder.reindex_table(rtab, i + 1) for i in range(N) ]
+            #tset_3 = [ lineorder.reindex_table(tab2, i + 1) for i in range(N) ]
+            #tset_4 = [ lineorder.reindex_table(rtab2, i + 1) for i in range(N) ]
+            tset = tset_1 + tset_2 # + tset_3 + tset_4
 
         for p in params:
           params_printed = False
@@ -284,7 +294,9 @@ def gen_main(
                 finally:
                   koboncnf.unblock_ctrl_c()
                     
-
+    endT = time.time()
+    print("Total running time: {} sec".format(endT - startT))
+    print("EXIT")
 
 
 # Run the tool:

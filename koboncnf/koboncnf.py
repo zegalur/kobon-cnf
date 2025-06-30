@@ -616,9 +616,14 @@ def generate(
             skip = []
             for b in tmp:
               rb = reverse_order(b)
-              for i in range(len(b) if not mirrored else 1):
+              b2 = reindex_table(reindex_table(b, len(b)), 2)
+              rb2 = reverse_order(b2)
+              for i in range(len(b)):# if not mirrored else 1):
                 skip.append(reindex_table(b, i + 1))
                 skip.append(reindex_table(rb, i + 1))
+              for i in range(len(b)):
+                skip.append(reindex_table(b2, i + 1))
+                skip.append(reindex_table(rb2, i + 1))
             skip = remove_list_duplicates(skip)
         for table in skip:
             line_1 = "\n"
