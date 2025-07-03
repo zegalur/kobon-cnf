@@ -11,6 +11,7 @@ import koboncnf
 import subprocess
 import threading
 import signal
+import scipy
 import time
 import copy
 import sys
@@ -129,6 +130,8 @@ def gen_main(
         missing_triangles,
         clear,
         ):
+
+    print("(SciPy version {})".format(scipy.__version__))
 
     PARAMS_DIR = "params/"
 
