@@ -299,6 +299,11 @@ def gen_main(
                     
     endT = time.time()
     print("Total running time: {} sec".format(endT - startT))
+    maximal_count = 0
+    for r in res:
+        if r['tri_count'] == r['upper_bound']:
+            maximal_count += 1
+    print("Maximal: {}".format(maximal_count))
     print("EXIT")
 
 
