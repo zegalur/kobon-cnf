@@ -24,6 +24,7 @@ python gen.py 17
 python fit.py 17 -U
 ```
 Open the `<kobon-cnf>/fit/kobon-17.html` to see the results gallery:
+
 ![Kobon 17 arrangemtns](./kobon17example.png)
 
 ## How It Works
