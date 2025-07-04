@@ -23,6 +23,8 @@ For example, to generate every single `n=17` Kobon arrangement, use (`python` or
 python gen.py 17
 python fit.py 17 -U
 ```
+Then open the `<kobon-cnf>/fit/kobon-17.html` to see the results gallery:
+![Kobon 17 arrangemtns](./kobon17example.png)
 
 ## How It Works
 
