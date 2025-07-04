@@ -18,6 +18,12 @@ By utilizing a CNF model of the Kobon triangle problem, Kissat for solving SAT p
 
 Run `gen.py` or `fit.py` without arguments to view detailed help information.
 
+For example, to generate every single `n=17` Kobon arrangement, use (`python` or `python3`, `-U` for unique only):
+```
+python gen.py 17
+python fit.py 17 -U
+```
+
 ## How It Works
 
 The tool converts the problem into a SAT-problem that is solvable by state-of-the-art SAT solvers.  
