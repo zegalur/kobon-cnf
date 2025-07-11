@@ -1,5 +1,7 @@
 # KobonCNF
 
+[[paper]](https://arxiv.org/abs/2507.07951)
+
 By utilizing a CNF model of the Kobon triangle problem, Kissat for solving SAT problems, and LineOrder for fitting straight lines, this tool helps in discovering new optimal arrangements.
 
 ## Showcases
